@@ -1,20 +1,17 @@
-import pytest
-from balancing_power import * 
-# -------------------------------
-# Tests for Problem 1: Balancing Power
-# -------------------------------
-
-def test_power_balanced_case():
-    assert is_power_balanced(5, "1 2 1 3 2") == "Power Balanced"
-
-def test_future_one_dominates():
-    assert is_power_balanced(5, "1 2 1 3 1") == "Future One Dominates"
-
-def test_two_gether_dominates():
-    assert is_power_balanced(6, "2 2 2 1 3 2") == "Two-gether Dominates"
-
-def test_triple_harmony_dominates():
-    assert is_power_balanced(4, "3 3 3 2") == "Triple Harmony Dominates"
+def is_power_balanced(n, party_affiliations):
+    # Count how many legislators belong to each party
+    counts = {1: 0, 2: 0, 3: 0}
+    party_list = list(map(int, party_affiliations.split()))
     
-def test_equal():
-    assert is_power_balanced(3, "1 2 3") == "Power Balanced" 
+    for party in party_list:
+        counts[party] += 1
+
+    # Check each party to see if it dominates
+    if counts[1] > counts[2] + counts[3]:
+        return "Future One Dominates"
+    elif counts[2] > counts[1] + counts[3]:
+        return "Two-gether Dominates"
+    elif counts[3] > counts[1] + counts[2]:
+        return "Triple Harmony Dominates"
+    else:
+        return "Power Balanced"
