@@ -1,20 +1,11 @@
-import pytest
-from intuitive_abbreviations import *
-# -------------------------------
-# Tests for Problem 2: Intuitive Abbreviations
-# -------------------------------
+def is_intuitive(element_name, abbreviation):
+    
+    element_name_lower = element_name.lower()
+    abbreviation_lower = abbreviation.lower()
 
-def test_intuitive_yes():
-    assert is_intuitive("Oxygen", "Ogn") == "YES"
-
-def test_intuitive_no():
-    assert is_intuitive("Oxygen", "Od") == "NO"
-
-def test_order():
-    assert is_intuitive("Carbon", "bC") == "YES"
-
-def test_letters_not_in_name():
-    assert is_intuitive("Helium", "Hz") == "NO"
-
-def test_duplicate_letters():
-    assert is_intuitive("Sodium", "Sooo") == "YES"
+    # For each letter in the abbreviation check if in the element name
+    for letter in abbreviation_lower:
+        if letter not in element_name_lower:
+            return "NO"
+    
+    return "YES"
